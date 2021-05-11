@@ -1,0 +1,14 @@
+@(regions: Seq[Region])
+
+@for(region <- regions) {
+    <strong>@region.id</strong>
+    @region.address
+    @region.city
+    @region.zip
+    @region.state
+    @region.country
+    @region.userId
+    <a href="@controllers.forms.routes.FormRegionController.updateRegion(region.id)">Edit</a>
+    <a href="@controllers.forms.routes.FormRegionController.deleteRegion(region.id)">Delete</a>
+    <br>
+}
