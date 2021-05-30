@@ -1,0 +1,19 @@
+@import controllers.forms.UpdateBrandForm
+@(brand: Form[UpdateBrandForm])(implicit request: MessagesRequestHeader, flash: Flash)
+
+@import helper._
+
+@flash.get("success").getOrElse("")
+
+@form(controllers.forms.routes.FormBrandController.updateBrandHandle) {
+    @helper.CSRF.formField
+    <input name="id" id="id" value="@brand("id").value" type="hidden" />
+    @inputText(brand("name"))
+    @inputText(brand("founded"))
+    @inputText(brand("description"))
+
+
+    <div class="buttons">
+        <input type="submit" value="Update Brand"/>
+    </div>
+}

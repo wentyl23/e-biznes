@@ -1,0 +1,17 @@
+@import controllers.forms.CreateBrandForm
+@(brand: Form[CreateBrandForm])(implicit request: MessagesRequestHeader, flash: Flash)
+
+@import helper._
+
+@flash.get("success").getOrElse("")
+
+@form(controllers.forms.routes.FormBrandController.createBrandHandle()) {
+    @helper.CSRF.formField
+    @inputText(brand("name"))
+    @inputText(brand("founded"))
+    @inputText(brand("description"))
+
+    <div class="buttons">
+        <input type="submit" value="Add Brand"/>
+    </div>
+}

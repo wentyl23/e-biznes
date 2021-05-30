@@ -1,0 +1,11 @@
+@(brands: Seq[Brand])
+
+@for(brand <- brands) {
+    <strong>@brand.id</strong>
+    @brand.name
+    @brand.founded
+    @brand.description
+    <a href="@controllers.forms.routes.FormBrandController.updateBrand(brand.id)">Edit</a>
+    <a href="@controllers.forms.routes.FormBrandController.deleteBrand(brand.id)">Delete</a>
+    <br>
+}

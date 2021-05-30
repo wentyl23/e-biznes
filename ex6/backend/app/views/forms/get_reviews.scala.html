@@ -1,0 +1,12 @@
+@(reviews: Seq[Review])
+
+@for(review <- reviews) {
+  <strong>@review.id</strong>
+  @review.rating
+  @review.description
+  @review.productId
+  @review.userId
+  <a href="@controllers.forms.routes.FormReviewController.updateReview(review.id)">Edit</a>
+  <a href="@controllers.forms.routes.FormReviewController.deleteReview(review.id)">Delete</a>
+  <br>
+}

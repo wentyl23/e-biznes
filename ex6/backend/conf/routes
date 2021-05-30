@@ -1,0 +1,166 @@
+
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# An example controller showing a sample home page
+GET     /                           controllers.HomeController.index
+
+# An example controller showing how to use dependency injection
+GET           /count                           controllers.CountController.count
+# An example controller showing how to write asynchronous code
+GET           /message                         controllers.AsyncController.message
+
+# Map static resources from the /public folder to the /assets URL path
+GET           /assets/*file                    controllers.Assets.versioned(path="/public", file: Asset)
+
+# Category Form
+GET           /form/category/list                                  controllers.forms.FormCategoryController.getCategories()
+GET           /form/category/create                                controllers.forms.FormCategoryController.addCategory()
+POST          /form/category/create/handle                         controllers.forms.FormCategoryController.createCategoryHandle()
+GET           /form/category/update/:id                            controllers.forms.FormCategoryController.updateCategory(id: Long)
+POST          /form/category/update/handle                         controllers.forms.FormCategoryController.updateCategoryHandle
+GET           /form/category/delete/:id                            controllers.forms.FormCategoryController.deleteCategory(id: Long)
+
+# Brand Form
+GET           /form/brand/list                                  controllers.forms.FormBrandController.getBrands()
+GET           /form/brand/create                                controllers.forms.FormBrandController.addBrand()
+POST          /form/brand/create/handle                         controllers.forms.FormBrandController.createBrandHandle()
+GET           /form/brand/update/:id                            controllers.forms.FormBrandController.updateBrand(id: Long)
+POST          /form/brand/update/handle                         controllers.forms.FormBrandController.updateBrandHandle
+GET           /form/brand/delete/:id                            controllers.forms.FormBrandController.deleteBrand(id: Long)
+
+# User Form
+GET           /form/user/list                                  controllers.forms.FormUserController.getUsers()
+GET           /form/user/create                                controllers.forms.FormUserController.addUser()
+POST          /form/user/create/handle                         controllers.forms.FormUserController.createUserHandle()
+GET           /form/user/update/:id                            controllers.forms.FormUserController.updateUser(id: Long)
+POST          /form/user/update/handle                         controllers.forms.FormUserController.updateUserHandle
+GET           /form/user/delete/:id                            controllers.forms.FormUserController.deleteUser(id: Long)
+
+# Voucher Form
+GET           /form/voucher/list                                  controllers.forms.FormVoucherController.getVouchers()
+GET           /form/voucher/create                                controllers.forms.FormVoucherController.addVoucher()
+POST          /form/voucher/create/handle                         controllers.forms.FormVoucherController.createVoucherHandle()
+GET           /form/voucher/update/:id                            controllers.forms.FormVoucherController.updateVoucher(id: Long)
+POST          /form/voucher/update/handle                         controllers.forms.FormVoucherController.updateVoucherHandle
+GET           /form/voucher/delete/:id                            controllers.forms.FormVoucherController.deleteVoucher(id: Long)
+
+# Payment Form
+GET           /form/payment/list                                  controllers.forms.FormPaymentController.getPayments()
+GET           /form/payment/create                                controllers.forms.FormPaymentController.addPayment()
+POST          /form/payment/create/handle                         controllers.forms.FormPaymentController.createPaymentHandle()
+GET           /form/payment/update/:id                            controllers.forms.FormPaymentController.updatePayment(id: Long)
+POST          /form/payment/update/handle                         controllers.forms.FormPaymentController.updatePaymentHandle
+GET           /form/payment/delete/:id                            controllers.forms.FormPaymentController.deletePayment(id: Long)
+
+# Product Form
+GET           /form/product/list                                  controllers.forms.FormProductController.getProducts()
+GET           /form/product/create                                controllers.forms.FormProductController.addProduct()
+POST          /form/product/create/handle                         controllers.forms.FormProductController.createProductHandle()
+GET           /form/product/update/:id                            controllers.forms.FormProductController.updateProduct(id: Long)
+POST          /form/product/update/handle                         controllers.forms.FormProductController.updateProductHandle
+GET           /form/product/delete/:id                            controllers.forms.FormProductController.deleteProduct(id: Long)
+
+# Review Form
+GET           /form/review/list                                  controllers.forms.FormReviewController.getReviews()
+GET           /form/review/create                                controllers.forms.FormReviewController.addReview()
+POST          /form/review/create/handle                         controllers.forms.FormReviewController.createReviewHandle()
+GET           /form/review/update/:id                            controllers.forms.FormReviewController.updateReview(id: Long)
+POST          /form/review/update/handle                         controllers.forms.FormReviewController.updateReviewHandle
+GET           /form/review/delete/:id                            controllers.forms.FormReviewController.deleteReview(id: Long)
+
+# Region Form
+GET           /form/region/list                                  controllers.forms.FormRegionController.getRegions()
+GET           /form/region/create                                controllers.forms.FormRegionController.addRegion()
+POST          /form/region/create/handle                         controllers.forms.FormRegionController.createRegionHandle()
+GET           /form/region/update/:id                            controllers.forms.FormRegionController.updateRegion(id: Long)
+POST          /form/region/update/handle                         controllers.forms.FormRegionController.updateRegionHandle
+GET           /form/region/delete/:id                            controllers.forms.FormRegionController.deleteRegion(id: Long)
+
+# Order Form
+GET           /form/order/list                                  controllers.forms.FormOrderController.getOrders()
+GET           /form/order/create                                controllers.forms.FormOrderController.addOrder()
+POST          /form/order/create/handle                         controllers.forms.FormOrderController.createOrderHandle()
+GET           /form/order/update/:id                            controllers.forms.FormOrderController.updateOrder(id: Long)
+POST          /form/order/update/handle                         controllers.forms.FormOrderController.updateOrderHandle
+GET           /form/order/delete/:id                            controllers.forms.FormOrderController.deleteOrder(id: Long)
+
+# Cart Form
+GET           /form/cart/list                                  controllers.forms.FormCartController.getCarts()
+GET           /form/cart/create                                controllers.forms.FormCartController.addCart()
+POST          /form/cart/create/handle                         controllers.forms.FormCartController.createCartHandle()
+GET           /form/cart/update/:id                            controllers.forms.FormCartController.updateCart(id: Long)
+POST          /form/cart/update/handle                         controllers.forms.FormCartController.updateCartHandle
+GET           /form/cart/delete/:id                            controllers.forms.FormCartController.deleteCart(id: Long)
+
+#Brand CRUD
+POST        /Brand      controllers.BrandController.addBrand
+GET         /Brands     controllers.BrandController.getBrands
+GET         /Brand/:id  controllers.BrandController.getBrand(id: Long)
+DELETE      /Brand/:id  controllers.BrandController.deleteBrand(id: Long)
+PUT        /Brand  controllers.BrandController.updateBrand()
+
+#Cart CRUD
+POST        /Cart      controllers.CartController.addCart
+GET         /Carts     controllers.CartController.getCarts
+GET         /Cart/:id  controllers.CartController.getCart(id: Long)
+DELETE      /Cart/:id  controllers.CartController.deleteCart(id: Long)
+PUT        /Cart  controllers.CartController.updateCart()
+
+#Category CRUD
+POST        /Category      controllers.CategoryController.addCategory
+GET         /Categories    controllers.CategoryController.getCategories
+GET         /Category/:id  controllers.CategoryController.getCategory(id: Long)
+DELETE      /Category/:id  controllers.CartController.deleteCart(id: Long)
+PUT        /Category  controllers.CartController.updateCart()
+
+#Order CRUD
+POST        /Order      controllers.OrderController.addOrder
+GET         /Orders     controllers.OrderController.getOrders
+GET         /Order/:id  controllers.OrderController.getOrder(id: Long)
+DELETE      /Order/:id  controllers.OrderController.deleteOrder(id: Long)
+PUT        /Order  controllers.OrderController.updateOrder()
+
+#Payment CRUD
+POST        /Payment      controllers.PaymentController.addPayment
+GET         /Payments     controllers.PaymentController.getPayments
+GET         /Payment/:id  controllers.PaymentController.getPayment(id: Long)
+DELETE      /Payment/:id  controllers.PaymentController.deletePayment(id: Long)
+PUT        /Payment  controllers.PaymentController.updatePayment()
+
+#Product CRUD
+POST        /Product      controllers.ProductController.addProduct
+GET         /Products     controllers.ProductController.getProducts
+GET         /Product/:id  controllers.ProductController.getProduct(id: Long)
+DELETE      /Product/:id  controllers.ProductController.deleteProduct(id: Long)
+PUT        /Product  controllers.ProductController.updateProduct()
+
+#Region CRUD
+POST        /Region      controllers.RegionController.addRegion
+GET         /Regions     controllers.RegionController.getRegions
+GET         /Region/:id  controllers.RegionController.getRegion(id: Long)
+DELETE      /Region/:id  controllers.RegionController.deleteRegion(id: Long)
+PUT        /Region  controllers.RegionController.updateRegion()
+
+#Review CRUD
+POST        /Review      controllers.ReviewController.addReview
+GET         /Reviews     controllers.ReviewController.getReviews
+GET         /Review/:id  controllers.ReviewController.getReview(id: Long)
+DELETE      /Review/:id  controllers.ReviewController.deleteReview(id: Long)
+PUT        /Review  controllers.ReviewController.updateReview()
+
+#User CRUD
+POST        /User      controllers.UserController.addUser
+GET         /Users     controllers.UserController.getUsers
+GET         /User/:email/:password controllers.UserController.getUserByEmailAndPassword(email: String, password: String)
+GET         /User/:id  controllers.UserController.getUser(id: Long)
+DELETE      /User/:id  controllers.UserController.deleteUser(id: Long)
+PUT        /User  controllers.UserController.updateUser()
+
+#Vourcher CRUD
+POST        /Voucher      controllers.VoucherController.addVoucher
+GET         /Vouchers     controllers.VoucherController.getVouchers
+GET         /Voucher/:id  controllers.VoucherController.getVoucher(id: Long)
+DELETE      /Voucher/:id  controllers.VoucherController.deleteVoucher(id: Long)
+PUT        /Voucher  controllers.VoucherController.updateVoucher()
