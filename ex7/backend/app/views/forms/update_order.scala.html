@@ -1,0 +1,48 @@
+@import controllers.forms.UpdateOrderForm
+@(order: Form[UpdateOrderForm], users: Seq[User], payments: Seq[Payment], vouchers: Seq[Voucher])(implicit request: MessagesRequestHeader, flash: Flash)
+
+@import helper._
+
+@flash.get("success").getOrElse("")
+
+@form(controllers.forms.routes.FormOrderController.updateOrderHandle) {
+    @helper.CSRF.formField
+    <input name="id" id="id" value="@order("id").value" type="hidden" />
+
+    <label for="user"></label>
+    <select name="userId" id="user">
+    @for(user <- users) {
+        @if(user.id.toString == order("user").value.getOrElse(0)) {
+            <option value="@user.id" selected>@user.email</option>
+        } else {
+            <option value="@user.id">@user.email</option>
+        }
+    }
+    </select>
+
+    <label for="payment"></label>
+    <select name="paymentId" id="payment">
+    @for(payment <- payments) {
+        @if(payment.id.toString == order("payment").value.getOrElse(0)) {
+            <option value="@payment.id" selected>@payment.cardNumber</option>
+        } else {
+            <option value="@payment.id">@payment.cardNumber</option>
+        }
+    }
+    </select>
+
+    <label for="voucher"></label>
+    <select name="voucherId" id="voucher">
+    @for(voucher <- vouchers) {
+        @if(voucher.id.toString == order("voucher").value.getOrElse(0)) {
+            <option value="@voucher.id" selected>@voucher.code</option>
+        } else {
+            <option value="@voucher.id">@voucher.code</option>
+        }
+    }
+    </select>
+
+    <div class="buttons">
+        <input type="submit" value="Update Order"/>
+    </div>
+}

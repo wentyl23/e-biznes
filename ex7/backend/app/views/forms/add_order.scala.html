@@ -1,0 +1,35 @@
+@import controllers.forms.CreateOrderForm
+@(order: Form[CreateOrderForm], users: Seq[User], payments: Seq[Payment], vouchers: Seq[Voucher])(implicit request: MessagesRequestHeader, flash: Flash)
+
+@import helper._
+
+@flash.get("success").getOrElse("")
+
+@form(controllers.forms.routes.FormOrderController.createOrderHandle()) {
+  @helper.CSRF.formField
+
+  <label for="user"></label>
+  <select name="userId" id="user">
+  @for(user <- users) {
+    <option value="@user.id">@user.email</option>
+  }
+  </select>
+
+  <label for="payment"></label>
+  <select name="paymentId" id="payment">
+  @for(payment <- payments) {
+    <option value="@payment.id">@payment.id</option>
+  }
+  </select>
+
+  <label for="voucher"></label>
+  <select name="voucherId" id="voucher">
+  @for(voucher <- vouchers) {
+    <option value="@voucher.id">@voucher.id</option>
+  }
+  </select>
+
+  <div class="buttons">
+    <input type="submit" value="Add Order"/>
+  </div>
+}

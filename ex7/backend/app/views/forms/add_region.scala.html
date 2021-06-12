@@ -1,0 +1,26 @@
+@import controllers.forms.CreateRegionForm
+@(region: Form[CreateRegionForm], users: Seq[User])(implicit request: MessagesRequestHeader, flash: Flash)
+
+@import helper._
+
+@flash.get("success").getOrElse("")
+
+@form(controllers.forms.routes.FormRegionController.createRegionHandle()) {
+    @helper.CSRF.formField
+    @inputText(region("address"))
+    @inputText(region("city"))
+    @inputText(region("zip"))
+    @inputText(region("state"))
+    @inputText(region("country"))
+
+    <label for="user"></label>
+    <select name="userId" id="user">
+    @for(user <- users) {
+        <option value="@user.id">@user.email</option>
+    }
+    </select>
+
+    <div class="buttons">
+        <input type="submit" value="Add Region"/>
+    </div>
+}

@@ -1,0 +1,39 @@
+@import controllers.forms.UpdateReviewForm
+@(review: Form[UpdateReviewForm],  products: Seq[Product], users: Seq[User])(implicit request: MessagesRequestHeader, flash: Flash)
+
+@import helper._
+
+@flash.get("success").getOrElse("")
+
+@form(controllers.forms.routes.FormReviewController.updateReviewHandle) {
+  @helper.CSRF.formField
+  <input name="id" id="id" value="@review("id").value" type="hidden" />
+  @inputText(review("rating"))
+  @inputText(review("description"))
+
+  <label for="product"></label>
+  <select name="productId" id="product">
+  @for(product <- products) {
+    @if(product.id.toString == review("product").value.getOrElse(0)) {
+      <option value="@product.id" selected>@product.name</option>
+    } else {
+      <option value="@product.id">@product.name</option>
+    }
+  }
+  </select>
+
+  <label for="user"></label>
+  <select name="userId" id="user">
+  @for(user <- users) {
+    @if(user.id.toString == review("user").value.getOrElse(0)) {
+      <option value="@user.id" selected>@user.email</option>
+    } else {
+      <option value="@user.id">@user.email</option>
+    }
+  }
+  </select>
+
+  <div class="buttons">
+    <input type="submit" value="Update Review"/>
+  </div>
+}

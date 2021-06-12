@@ -1,0 +1,29 @@
+@import controllers.forms.CreateCartForm
+@(cart: Form[CreateCartForm],  orders: Seq[Order], products: Seq[Product])(implicit request: MessagesRequestHeader, flash: Flash)
+
+@import helper._
+
+@flash.get("success").getOrElse("")
+
+@form(controllers.forms.routes.FormCartController.createCartHandle()) {
+    @helper.CSRF.formField
+    @inputText(cart("amount"))
+
+    <label for="order"></label>
+    <select name="orderId" id="order">
+    @for(order <- orders) {
+        <option value="@order.id">@order.id</option>
+    }
+    </select>
+
+    <label for="product"></label>
+    <select name="productId" id="product">
+    @for(product <- products) {
+        <option value="@product.id">@product.name</option>
+    }
+    </select>
+
+    <div class="buttons">
+        <input type="submit" value="Add Cart"/>
+    </div>
+}
