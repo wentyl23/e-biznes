@@ -19,9 +19,9 @@ class OrderRepository @Inject()(dbConfigProvider: DatabaseConfigProvider, val us
     def userId = column[Long]("user_id")
     def paymentId = column[Long]("payment_id")
     def voucherId = column[Long]("voucher_id")
-    def payment_key = foreignKey("payment_key", paymentId, payment)(_.id)
-    def user_key = foreignKey("user_key", userId, app_user)(_.id)
-    def voucher_key = foreignKey("voucher_key", voucherId, voucher)(_.id)
+    def paymentKey = foreignKey("payment_key", paymentId, payment)(_.id)
+    def userKey = foreignKey("user_key", userId, app_user)(_.id)
+    def voucherKey = foreignKey("voucher_key", voucherId, voucher)(_.id)
     def * = (id, userId, paymentId, voucherId) <> ((Order.apply _).tupled, Order.unapply)
   }
 

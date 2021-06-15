@@ -12,6 +12,8 @@ import scala.concurrent.{ExecutionContext, Future}
 @Singleton
 class FormBrandController @Inject()(brandRepo: BrandRepository, cc: MessagesControllerComponents)(implicit ec: ExecutionContext) extends MessagesAbstractController(cc) {
 
+  val url = "/form/brand/list"
+
   def getBrands: Action[AnyContent] = Action.async {
     implicit request =>
       brandRepo.list().map(brands => Ok(views.html.forms.get_brands(brands)))
@@ -50,7 +52,7 @@ class FormBrandController @Inject()(brandRepo: BrandRepository, cc: MessagesCont
         },
         brand => {
           brandRepo.create(brand.name, brand.founded, brand.description).map { _ =>
-            Redirect("/form/brand/list").flashing("success" -> "product.created")
+            Redirect(url).flashing("success" -> "product.created")
           }
         }
       )
@@ -76,7 +78,7 @@ class FormBrandController @Inject()(brandRepo: BrandRepository, cc: MessagesCont
         },
         brand => {
           brandRepo.update(brand.id, Brand(brand.id, brand.name, brand.founded, brand.description)).map { _ =>
-            Redirect("/form/brand/list").flashing("success" -> "product.created")
+            Redirect(url).flashing("success" -> "product.created")
           }
         }
       )
@@ -84,7 +86,7 @@ class FormBrandController @Inject()(brandRepo: BrandRepository, cc: MessagesCont
 
   def deleteBrand(id: Long): Action[AnyContent] = Action {
     brandRepo.delete(id)
-    Redirect("/form/brand/list")
+    Redirect(url)
   }
 }
 

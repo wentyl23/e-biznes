@@ -22,8 +22,8 @@ class ProductRepository @Inject()(dbConfigProvider: DatabaseConfigProvider,  val
     def amount = column[String]("amount")
     def unitPrice = column[String]("unit_price")
     def description = column[String]("description")
-    def category_key = foreignKey("category_key", categoryId, cat)(_.id)
-    def brand_key = foreignKey("brand_key", brandId, brand)(_.id)
+    def categoryKey = foreignKey("category_key", categoryId, cat)(_.id)
+    def brandKey = foreignKey("brand_key", brandId, brand)(_.id)
     def * = (id, categoryId, brandId, name, amount, unitPrice, description) <> ((Product.apply _).tupled, Product.unapply)
   }
 
@@ -50,8 +50,8 @@ class ProductRepository @Inject()(dbConfigProvider: DatabaseConfigProvider,  val
   }
 
   def update(id:Long, c: Product): Future[Int] = {
-    val updated_cart: Product = c.copy(id)
-    db.run(product.filter(_.id === id).update(updated_cart))
+    val updatedCart: Product = c.copy(id)
+    db.run(product.filter(_.id === id).update(updatedCart))
   }
 
   def delete(id:Long): Future[Int] = db.run(product.filter(_.id===id).delete)

@@ -22,7 +22,7 @@ class RegionRepository @Inject()(dbConfigProvider: DatabaseConfigProvider, val u
     def zip = column[String]("zip")
     def state = column[String]("state")
     def country = column[String]("country")
-    def user_key = foreignKey("user_key", userId, app_user)(_.id)
+    def userKey = foreignKey("user_key", userId, app_user)(_.id)
     def * = (id, userId, address, city, zip, state, country) <> ((Region.apply _).tupled, Region.unapply)
   }
 
@@ -46,8 +46,8 @@ class RegionRepository @Inject()(dbConfigProvider: DatabaseConfigProvider, val u
   }
 
   def update(id:Long, r: Region): Future[Int] = {
-    val updated_region: Region = r.copy(id)
-    db.run(region.filter(_.id === id).update(updated_region))
+    val updatedRegion: Region = r.copy(id)
+    db.run(region.filter(_.id === id).update(updatedRegion))
   }
 
   def delete(id:Long): Future[Int] = db.run(region.filter(_.id===id).delete)

@@ -12,6 +12,8 @@ import scala.concurrent.{ExecutionContext, Future}
 @Singleton
 class FormPaymentController @Inject()(paymentRepository: PaymentRepository, cc: MessagesControllerComponents)(implicit ec: ExecutionContext) extends MessagesAbstractController(cc) {
 
+  val url = "/form/payment/list"
+
   def getPayments: Action[AnyContent] = Action.async {
     implicit request =>
       paymentRepository.list().map(payments => Ok(views.html.forms.get_payments(payments)))
@@ -54,7 +56,7 @@ class FormPaymentController @Inject()(paymentRepository: PaymentRepository, cc: 
         },
         payment => {
           paymentRepository.create(payment.value, payment.nameOnCard, payment.cardNumber, payment.cvCode, payment.expDate).map { _ =>
-            Redirect("/form/payment/list").flashing("success" -> "product.created")
+            Redirect(url).flashing("success" -> "product.created")
           }
         }
       )
@@ -80,7 +82,7 @@ class FormPaymentController @Inject()(paymentRepository: PaymentRepository, cc: 
         },
         payment => {
           paymentRepository.update(payment.id, Payment(payment.id, payment.value, payment.nameOnCard, payment.cardNumber, payment.cvCode, payment.expDate)).map { _ =>
-            Redirect("/form/payment/list").flashing("success" -> "product.created")
+            Redirect(url).flashing("success" -> "product.created")
           }
         }
       )
@@ -88,7 +90,7 @@ class FormPaymentController @Inject()(paymentRepository: PaymentRepository, cc: 
 
   def deletePayment(id: Long): Action[AnyContent] = Action {
     paymentRepository.delete(id)
-    Redirect("/form/payment/list")
+    Redirect(url)
   }
 }
 

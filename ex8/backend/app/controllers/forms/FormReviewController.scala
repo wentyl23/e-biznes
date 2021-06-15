@@ -15,6 +15,7 @@ import scala.util.{Failure, Success}
 @Singleton
 class FormReviewController @Inject()(reviewRepository: ReviewRepository, productRepository: ProductRepository, userRepository: UserRepository, cc: MessagesControllerComponents)(implicit ec: ExecutionContext) extends MessagesAbstractController(cc) {
 
+  val url = "/form/review/list"
   var productList: Seq[Product] = Seq[Product]()
   var userList: Seq[User] = Seq[User]()
   fetchLists()
@@ -72,7 +73,7 @@ class FormReviewController @Inject()(reviewRepository: ReviewRepository, product
         },
         review => {
           reviewRepository.create(review.productId, review.userId, review.rating, review.description).map { _ =>
-            Redirect("/form/review/list").flashing("success" -> "review.created")
+            Redirect(url).flashing("success" -> "review.created")
           }
         }
       )
@@ -99,7 +100,7 @@ class FormReviewController @Inject()(reviewRepository: ReviewRepository, product
         },
         review => {
           reviewRepository.update(review.id, Review(review.id, review.productId, review.userId, review.rating, review.description)).map { _ =>
-            Redirect("/form/review/list").flashing("success" -> "review.created")
+            Redirect(url).flashing("success" -> "review.created")
           }
         }
       )
@@ -107,7 +108,7 @@ class FormReviewController @Inject()(reviewRepository: ReviewRepository, product
 
   def deleteReview(id: Long): Action[AnyContent] = Action {
     reviewRepository.delete(id)
-    Redirect("/form/review/list")
+    Redirect(url)
   }
 }
 

@@ -12,6 +12,8 @@ import scala.concurrent.{ExecutionContext, Future}
 @Singleton
 class FormVoucherController @Inject()(voucherRepo: VoucherRepository, cc: MessagesControllerComponents)(implicit ec: ExecutionContext) extends MessagesAbstractController(cc) {
 
+  val url = "/form/voucher/list";
+
   def getVouchers: Action[AnyContent] = Action.async {
     implicit request =>
       voucherRepo.list().map(vouchers => Ok(views.html.forms.get_vouchers(vouchers)))
@@ -48,7 +50,7 @@ class FormVoucherController @Inject()(voucherRepo: VoucherRepository, cc: Messag
         },
         voucher => {
           voucherRepo.create(voucher.code, voucher.value).map { _ =>
-            Redirect("/form/voucher/list").flashing("success" -> "product.created")
+            Redirect(url).flashing("success" -> "product.created")
           }
         }
       )
@@ -74,7 +76,7 @@ class FormVoucherController @Inject()(voucherRepo: VoucherRepository, cc: Messag
         },
         voucher => {
           voucherRepo.update(voucher.id, Voucher(voucher.id, voucher.code, voucher.value)).map { _ =>
-            Redirect("/form/voucher/list").flashing("success" -> "product.created")
+            Redirect(url).flashing("success" -> "product.created")
           }
         }
       )
@@ -82,7 +84,7 @@ class FormVoucherController @Inject()(voucherRepo: VoucherRepository, cc: Messag
 
   def deleteVoucher(id: Long): Action[AnyContent] = Action {
     voucherRepo.delete(id)
-    Redirect("/form/voucher/list")
+    Redirect(url)
   }
 }
 

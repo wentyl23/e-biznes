@@ -15,6 +15,7 @@ import scala.util.{Failure, Success}
 @Singleton
 class FormCartController @Inject()(cartRepository: CartRepository,orderRepository: OrderRepository, productRepository: ProductRepository, cc: MessagesControllerComponents)(implicit ec: ExecutionContext) extends MessagesAbstractController(cc) {
 
+  val url = "/form/cart/list"
   var orderList: Seq[Order] = Seq[Order]()
   var productList: Seq[Product] = Seq[Product]()
   fetchLists()
@@ -70,7 +71,7 @@ class FormCartController @Inject()(cartRepository: CartRepository,orderRepositor
         },
         cart => {
           cartRepository.create(cart.orderId, cart.productId, cart.amount).map { _ =>
-            Redirect("/form/cart/list").flashing("success" -> "cart.created")
+            Redirect(url).flashing("success" -> "cart.created")
           }
         }
       )
@@ -96,7 +97,7 @@ class FormCartController @Inject()(cartRepository: CartRepository,orderRepositor
         },
         cart => {
           cartRepository.update(cart.id, Cart(cart.id, cart.orderId, cart.productId, cart.amount)).map { _ =>
-            Redirect("/form/cart/list").flashing("success" -> "cart.created")
+            Redirect(url).flashing("success" -> "cart.created")
           }
         }
       )
@@ -104,7 +105,7 @@ class FormCartController @Inject()(cartRepository: CartRepository,orderRepositor
 
   def deleteCart(id: Long): Action[AnyContent] = Action {
     cartRepository.delete(id)
-    Redirect("/form/cart/list")
+    Redirect(url)
   }
 }
 

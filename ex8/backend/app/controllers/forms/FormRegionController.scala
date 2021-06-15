@@ -15,6 +15,7 @@ import scala.util.{Failure, Success}
 @Singleton
 class FormRegionController @Inject()(regionRepository: RegionRepository, userRepository: UserRepository, cc: MessagesControllerComponents)(implicit ec: ExecutionContext) extends MessagesAbstractController(cc) {
 
+  val url = "/form/region/list"
   var userList: Seq[User] = Seq[User]()
   fetchLists()
 
@@ -69,7 +70,7 @@ class FormRegionController @Inject()(regionRepository: RegionRepository, userRep
         },
         region => {
           regionRepository.create(region.userId, region.address, region.city, region.zip, region.state, region.country).map { _ =>
-            Redirect("/form/region/list").flashing("success" -> "region.created")
+            Redirect(url).flashing("success" -> "region.created")
           }
         }
       )
@@ -96,7 +97,7 @@ class FormRegionController @Inject()(regionRepository: RegionRepository, userRep
         },
         region => {
           regionRepository.update(region.id, Region(region.id, region.userId, region.address, region.city, region.zip, region.state, region.country)).map { _ =>
-            Redirect("/form/region/list").flashing("success" -> "region.created")
+            Redirect(url).flashing("success" -> "region.created")
           }
         }
       )
@@ -104,7 +105,7 @@ class FormRegionController @Inject()(regionRepository: RegionRepository, userRep
 
   def deleteRegion(id: Long): Action[AnyContent] = Action {
     regionRepository.delete(id)
-    Redirect("/form/region/list")
+    Redirect(url)
   }
 }
 

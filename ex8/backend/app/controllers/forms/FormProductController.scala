@@ -15,6 +15,7 @@ import scala.util.{Failure, Success}
 @Singleton
 class FormProductController @Inject()(productRepository: ProductRepository,brandRepository: BrandRepository, catRepository: CategoryRepository, cc: MessagesControllerComponents)(implicit ec: ExecutionContext) extends MessagesAbstractController(cc) {
 
+  val url = "/form/product/list"
   var brandList: Seq[Brand] = Seq[Brand]()
   var categoryList: Seq[Category] = Seq[Category]()
   fetchLists()
@@ -76,7 +77,7 @@ class FormProductController @Inject()(productRepository: ProductRepository,brand
         },
         product => {
           productRepository.create(product.categoryId, product.brandId, product.name, product.amount, product.unitPrice, product.description).map { _ =>
-            Redirect("/form/product/list").flashing("success" -> "product.created")
+            Redirect(url).flashing("success" -> "product.created")
           }
         }
       )
@@ -102,7 +103,7 @@ class FormProductController @Inject()(productRepository: ProductRepository,brand
         },
         product => {
           productRepository.update(product.id, Product(product.id, product.categoryId, product.brandId, product.name, product.amount, product.unitPrice, product.description)).map { _ =>
-            Redirect("/form/product/list").flashing("success" -> "product.created")
+            Redirect(url).flashing("success" -> "product.created")
           }
         }
       )
@@ -110,7 +111,7 @@ class FormProductController @Inject()(productRepository: ProductRepository,brand
 
   def deleteProduct(id: Long): Action[AnyContent] = Action {
     productRepository.delete(id)
-    Redirect("/form/product/list")
+    Redirect(url)
   }
 }
 

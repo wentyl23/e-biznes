@@ -19,8 +19,8 @@ class CartRepository @Inject()(dbConfigProvider: DatabaseConfigProvider, val ord
     def orderId = column[Long]("order_id")
     def productId = column[Long]("product_id")
     def amount = column[Int]("amount")
-    def order_key = foreignKey("order_key", orderId, shop_order)(_.id)
-    def product_key = foreignKey("product_key", productId, product)(_.id)
+    def orderKey = foreignKey("order_key", orderId, shop_order)(_.id)
+    def productKey = foreignKey("product_key", productId, product)(_.id)
     def * = (id, orderId, productId, amount) <> ((Cart.apply _).tupled, Cart.unapply)
   }
 
