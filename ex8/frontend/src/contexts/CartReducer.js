@@ -5,8 +5,8 @@ const Storage = (cartItems) => {
 
 export const sumItems = cartItems => {
     Storage(cartItems);
-    let itemCount = cartItems.reduce((total, product) => total + product.quantity, 0);
-    let total = cartItems.reduce((total, product) => total + product.unitPrice * product.quantity, 0).toFixed(2);
+    let itemCount = cartItems.reduce((totalItems, product) => totalItems + product.quantity, 0);
+    let total = cartItems.reduce((price, product) => price + product.unitPrice * product.quantity, 0).toFixed(2);
     return { itemCount, total }
 }
 

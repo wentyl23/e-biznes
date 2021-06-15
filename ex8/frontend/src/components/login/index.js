@@ -13,15 +13,15 @@ const Login = () => {
     const {log_in, logged, user} = useContext(LoggedContext);
 
 
-    const fetchUser = async (email, password) => {
-        const response = await UserService.signIn(email, password);
+    const fetchUser = async (form_email, form_password) => {
+        const response = await UserService.signIn(form_email, form_password);
         console.log(response);
 
         log_in(response.data);
     }
 
-    const email = useFormInput('');
-    const password = useFormInput('');
+    const form_email = useFormInput('');
+    const form_password = useFormInput('');
 
     return (
         <Layout title="Login" description="This is the Login page">
@@ -37,15 +37,15 @@ const Login = () => {
                     <h1>Log In</h1>
                     <div>
                         Email<br/>
-                        <input type="text" {...email} autoComplete="new-password"/>
+                        <input type="text" {...form_email} autoComplete="new-password"/>
                     </div>
                     <div style={{marginTop: 10}}>
                         Password<br/>
-                        <input type="password" {...password} autoComplete="new-password"/>
+                        <input type="password" {...form_password} autoComplete="new-password"/>
                     </div>
                     <div style={{marginTop: 20}}>
                         <Link to='/'>
-                            <button className="btn btn-outline-primary btn-sm" onClick={() => {fetchUser(email.value, password.value);}}>
+                            <button className="btn btn-outline-primary btn-sm" onClick={() => {fetchUser(form_email.value, form_password.value);}}>
                                 Login
                             </button>
                         </Link>
