@@ -1,0 +1,30 @@
+@import controllers.forms.CreateReviewForm
+@(review: Form[CreateReviewForm],  products: Seq[Product], users: Seq[User])(implicit request: MessagesRequestHeader, flash: Flash)
+
+@import helper._
+
+@flash.get("success").getOrElse("")
+
+@form(controllers.forms.routes.FormReviewController.createReviewHandle()) {
+    @helper.CSRF.formField
+    @inputText(review("rating"))
+    @inputText(review("description"))
+
+    <label for="product"></label>
+    <select name="productId" id="product">
+    @for(product <- products) {
+        <option value="@product.id">@product.name</option>
+    }
+    </select>
+
+    <label for="user"></label>
+    <select name="userId" id="user">
+    @for(user <- users) {
+        <option value="@user.id">@user.email</option>
+    }
+    </select>
+
+    <div class="buttons">
+        <input type="submit" value="Add Review"/>
+    </div>
+}

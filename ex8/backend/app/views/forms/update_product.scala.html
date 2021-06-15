@@ -1,0 +1,41 @@
+@import controllers.forms.UpdateProductForm
+@(product: Form[UpdateProductForm],  categories: Seq[Category], brands: Seq[Brand])(implicit request: MessagesRequestHeader, flash: Flash)
+
+@import helper._
+
+@flash.get("success").getOrElse("")
+
+@form(controllers.forms.routes.FormProductController.updateProductHandle) {
+    @helper.CSRF.formField
+    <input name="id" id="id" value="@product("id").value" type="hidden" />
+    @inputText(product("name"))
+    @inputText(product("amount"))
+    @inputText(product("unitPrice"))
+    @inputText(product("description"))
+
+    <label for="brand"></label>
+    <select name="brandId" id="brand">
+    @for(brand <- brands) {
+        @if(brand.id.toString == product("brand").value.getOrElse(0)) {
+            <option value="@brand.id" selected>@brand.name</option>
+        } else {
+            <option value="@brand.id">@brand.name</option>
+        }
+    }
+    </select>
+
+    <label for="category"></label>
+    <select name="categoryId" id="category">
+    @for(category <- categories) {
+        @if(category.id.toString == product("category").value.getOrElse(0)) {
+            <option value="@category.id" selected>@category.name</option>
+        } else {
+            <option value="@category.id">@category.name</option>
+        }
+    }
+    </select>
+
+    <div class="buttons">
+        <input type="submit" value="Update Product"/>
+    </div>
+}
