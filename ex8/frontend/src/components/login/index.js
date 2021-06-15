@@ -13,8 +13,8 @@ const Login = () => {
     const {log_in, logged, user} = useContext(LoggedContext);
 
 
-    const fetchUser = async (form_email, form_password) => {
-        const response = await UserService.signIn(form_email, form_password);
+    const fetchUser = async (userEmail, userPassword) => {
+        const response = await UserService.signIn(userEmail, userPassword);
         console.log(response);
 
         log_in(response.data);

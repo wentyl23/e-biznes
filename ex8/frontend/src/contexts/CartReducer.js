@@ -11,7 +11,7 @@ export const sumItems = cartItems => {
 }
 
 const decrease = (cartItems, id) => {
-    const items = cartItems.map(x => {
+    return cartItems.map(x => {
         if (x.id !== id) {
             return x
         }
@@ -20,12 +20,11 @@ const decrease = (cartItems, id) => {
             ...x,
             quantity: x.quantity-1
         }
-    });
-    return items
+    })
 }
 
 const increase = (cartItems, id) => {
-    const items = cartItems.map(x => {
+    return cartItems.map(x => {
         if (x.id !== id) {
             return x
         }
@@ -34,8 +33,7 @@ const increase = (cartItems, id) => {
             ...x,
             quantity: x.quantity+1
         }
-    });
-    return items
+    })
 }
 
 export const CartReducer = (state, action) => {
